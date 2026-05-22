@@ -1,5 +1,6 @@
 <?php
-declare (strict_types=1);
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
@@ -25,6 +26,7 @@ class ServiceController extends Controller
                     ]
                 ], 422);
             }
+
             $query->where("status", $status === "active");
         }
 
@@ -47,7 +49,6 @@ class ServiceController extends Controller
         ]);
 
         $data["status"] = $data["status"] ?? true;
-
         $service = Service::query()->create($data);
 
         return response()->json([
@@ -113,7 +114,7 @@ class ServiceController extends Controller
                 "success" => false,
                 "message" => "Service not found",
                 "errors" => [],
-            ], 404);
+                ], 404);
         }
 
         if ($service->subscriptions()->exists()) {
